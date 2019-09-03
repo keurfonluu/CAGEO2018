@@ -1,0 +1,33 @@
+\section{PSO algorithm}
+\label{app:algo_pso}
+
+Detailed PSO algorithm is summarized in Algorithm~\ref{alg:pso} where $\mathbf{V} = \left[ \mathbf{v}_{1}, ..., \mathbf{v}_{s} \right] \in \mathbb{R}^{s \times n}$ and $\mathbf{M} = \left[ \mathbf{m}_{1}, ..., \mathbf{m}_{s} \right] \in \mathbb{R}^{s \times n}$ respectively denote particles velocity and model matrices, $\mathbf{p}_{fit} \in \mathbb{R}^{s}$ is the vector of particles personal best misfits, and $\mathbf{P}_{best} = \left[ \mathbf{m}_{p,1}, ..., \mathbf{m}_{p,s} \right] \in \mathbb{R}^{s \times n}$ is a vector that contains the personal best models of every particles. The algorithm is stopped when:
+
+\begin{enumerate}
+	\item The global best model changes less than a specified threshold $\varepsilon_{1}$ and its misfit function value is lower than a threshold $\varepsilon_{2}$,
+	\item The maximum number of iteration is reached.
+\end{enumerate}
+
+\begin{algorithm}[H]
+	\centering
+	\caption{PSO algorithm}
+	\label{alg:pso}
+	\begin{algorithmic}[1]
+		\State $\mathbf{V} \gets \mathbf{0}$ \Comment{Initialize velocities}
+		\State $\mathbf{M} \sim \mathcal{U} \left( \mathbf{m}_{\min}, \mathbf{m}_{\max} \right)$ \Comment{Initialize models}
+		\State $\mathbf{p}_{fit} \gets E \left( \mathbf{M} \right)$ \Comment{Initialize personal best misfits}
+		\State $\mathbf{P}_{best} \gets \mathbf{M}$ \Comment{Initialize personal best models}
+		\State $\mathbf{m}_{g} \gets \argmin \left( E \left( \mathbf{P}_{best} \right) \right)$ \Comment{Initialize global best model}
+		\Repeat
+			\For {$i = 1$ to $s$}
+				\State $\mathbf{v}_{i} \gets \omega \mathbf{v}_{i} + \phi_{p} \mathbf{r}_{p} \left( \mathbf{m}_{p,i} - \mathbf{m}_{i} \right) + \phi_{g} \mathbf{r}_{g} \left( \mathbf{m}_{g} - \mathbf{m}_{i} \right)$ \Comment{Update velocity}
+				\State $\mathbf{m}_{i} \gets \mathbf{m}_{i} + \mathbf{v}_{i}$ \Comment{Update model}
+				\If {$E \left( \mathbf{m}_{i} \right) < \mathbf{p}_{fit,i}$}
+					\State $\mathbf{p}_{fit,i} \gets E \left( \mathbf{m}_{i} \right)$ \Comment{Evaluate misfit function}
+					\State $\mathbf{P}_{best,i} \gets \mathbf{m}_{i}$ \Comment{Update personal best model}
+				\EndIf
+			\EndFor
+			\State $\mathbf{m}_{g} \gets \argmin \left( E \left( \mathbf{P}_{best} \right) \right)$ \Comment{Update global best model}
+		\Until {stopping criterion is met}
+	\end{algorithmic}
+\end{algorithm}

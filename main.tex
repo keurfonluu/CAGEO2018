@@ -1,0 +1,148 @@
+\documentclass[3p, 10pt, review, times, authoryear]{elsarticle}
+%\documentclass[5p, 10pt, final, times, twocolumn, authoryear]{elsarticle}
+
+% Packages
+%------------------------------------------------------------------------------
+\usepackage{amsmath, amsfonts, amsthm, amssymb}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{booktabs}
+\usepackage{cases}
+\usepackage{changes}
+\usepackage{float}
+\usepackage{import}
+\usepackage{lineno}
+\usepackage{mathtools}
+\usepackage{multirow}
+\usepackage{subfig}
+\usepackage[colorlinks]{hyperref}
+%\usepackage[strings]{underscore}
+%------------------------------------------------------------------------------
+
+
+% Commands
+%------------------------------------------------------------------------------
+\def\thefigures{figures}
+\def\revision{red}
+\DeclareMathOperator*{\argmin}{\arg\!\min}
+\newcommand{\abs}[1]{\left\lvert#1\right\rvert}
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+\newcommand{\rs}[1]{\mathstrut\mbox{\scriptsize\rm #1}}
+\newcommand{\rr}[1]{\mbox{\rm #1}}
+%------------------------------------------------------------------------------
+
+
+\begin{document}
+
+
+% Abstract
+%------------------------------------------------------------------------------
+\begin{abstract}
+Seismic traveltime tomography is an optimization problem that requires large computational efforts. Therefore, linearized techniques are commonly used for their low computational cost. These local optimization methods are likely to get trapped in a local minimum as they critically depend on the initial model. On the other hand, global optimization methods based on MCMC are insensitive to the initial model but turn out to be computationally expensive. Particle Swarm Optimization (PSO) is a rather new global optimization approach with few tuning parameters that has shown excellent convergence rates and is straightforwardly parallelizable, allowing a good distribution of the workload. However, while it can traverse several local minima of the evaluated misfit function, classical implementation of PSO can get trapped in local minima at later iterations as particles inertia dim. We propose a Competitive PSO (CPSO) to help particles to escape from local minima with a simple implementation that improves swarm's diversity. The model space can be sampled by running the optimizer multiple times and by keeping all the models explored by the swarms in the different runs. A traveltime tomography algorithm based on CPSO is successfully applied on a real 3D data set in the context of induced seismicity.
+\end{abstract}
+%------------------------------------------------------------------------------
+
+
+% Keywords
+%------------------------------------------------------------------------------
+\begin{keyword}
+microseismic, traveltime tomography, particle swarm optimization, uncertainty quantification, high performance computing
+\end{keyword}
+%------------------------------------------------------------------------------
+
+
+% Frontmatter
+%------------------------------------------------------------------------------
+\begin{frontmatter}
+
+\title{
+	A parallel Competitive Particle Swarm Optimization for non-linear first arrival traveltime tomography and uncertainty quantification
+}
+
+\author[mines]{Keurfon~Luu\corref{cor1}}
+\ead{keurfon.luu@mines-paristech.fr}
+
+\author[mines]{Mark~Noble}
+\ead{mark.noble@mines-paristech.fr}
+
+\author[mines]{Alexandrine~Gesret}
+\ead{alexandrine.gesret@mines-paristech.fr}
+
+\author[baker]{Nidhal Belayouni}
+\ead{nidhal.belayouni@magnitude-geo.com}
+
+\author[baker]{Pierre-Fran\c cois Roux}
+\ead{pierre-francois.roux@bakerhughes.com}
+
+\cortext[cor1]{Principal Corresponding Author}
+%\cortext[cor2]{Corresponding Author}
+
+\address[mines]{
+	MINES~ParisTech,~PSL -- Research~University, \\
+	Centre de G\'eosciences, \\
+	35, rue Saint-Honor\'e, \\
+	77305 Fontainebleau, France
+}
+
+\address[baker]{
+	Baker Hughes, a General Electric company \\
+}
+
+\date{Received: date / Accepted: date}
+
+\end{frontmatter}
+%------------------------------------------------------------------------------
+
+
+% Main content
+%------------------------------------------------------------------------------
+\linenumbers		% Start lines numbering
+\subimport{main/}{main_tomographie}
+%------------------------------------------------------------------------------
+
+
+% Acknowledgements
+%------------------------------------------------------------------------------
+\section*{Acknowledgements}
+\label{sec:acknowledgements}
+
+The authors would like to thank Christophe Maisons (Magnitude SAS) for providing the data, and the GEOTREF project for financial support (www.geotref.com). This project is funded by ADEME in the frame of les Investissements d'Avenir program. Partners of the GEOTREF project are Kidova, Teranov, MINES~ParisTech, ENS~Paris, GeoAzur, GeoRessources, IMFT, IPGS, LHyGes, UAG, and UCP-GEC. We also thank Philippe Thierry and two anonymous reviewers for their valuable comments and suggestions that improved the quality of this manuscript. {\color{\revision}CPSO source code is available in Python~3 on GitHub at \url{https://github.com/keurfonluu/StochOPy}.}
+%------------------------------------------------------------------------------
+
+
+\appendix
+
+
+% Appendix A: PSO algorithm
+%------------------------------------------------------------------------------
+\subimport{app_pso/}{main_app_pso}
+%------------------------------------------------------------------------------
+
+
+% Appendix B: CPSO algorithm
+%------------------------------------------------------------------------------
+\subimport{app_cpso/}{main_app_cpso}
+%------------------------------------------------------------------------------
+
+
+% Appendix C: Benchmark test functions
+%------------------------------------------------------------------------------
+\subimport{app_benchmark/}{main_app_benchmark}
+%------------------------------------------------------------------------------
+
+
+% Appendix D: Sensitivity analysis
+%------------------------------------------------------------------------------
+\subimport{app_sensana/}{main_app_sensana}
+%------------------------------------------------------------------------------
+
+
+% References
+%------------------------------------------------------------------------------
+\section*{References}
+\bibliographystyle{plainnat}
+\bibliography{library}
+%------------------------------------------------------------------------------
+
+
+\end{document}

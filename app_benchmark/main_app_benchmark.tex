@@ -1,0 +1,24 @@
+\section{Benchmark test functions}
+\label{app:benchmark}
+
+Several test functions used to benchmark global optimization methods are summarized in Table~\ref{tab:benchmark_test_functions}, together with their application ranges, minimum positions and values.
+
+\begin{table}[H]
+	\centering
+	\makebox[\textwidth]{
+		\begin{tabular}{llccc}
+			\toprule
+			Function &   & Range & Solution & Minimum \\
+			\cmidrule(r){2-5}
+			Ackley &  $20 + e - 20 e^{-0.2 \sqrt{ \frac{\sum\limits_{i=1}^{n} x_{i}^{2}}{n} }} - e^{\frac{\sum\limits_{i=1}^{n} \cos \left( 2 \pi x_{i} \right)}{n}}$ & $\left[ -32.768, 32.768 \right]$ & $\left( 0 \right)^{n}$ & $0$ \\
+			Griewank & $1 + \sum\limits_{i=1}^{n} \frac{x_{i}^{2}}{4000} - \prod\limits_{i=1}^{n} \cos \left( \frac{x_{i}}{\sqrt{i}} \right)$ & $\left[ -600, 600 \right]$ & $\left( 0 \right)^{n}$ & $0$ \\
+			Quartic (noise) &  $\sum\limits_{i=1}^{n} i x_{i}^{2} + \mathrm{rand} \left( 0, 1 \right)$ & $\left[ -1.28, 1.28 \right]$ & $\left( 0 \right)^{n}$ & $0$ \\
+			Rastrigin & $10n + \sum\limits_{i=1}^{n} \left( x_{i}^{2} - 10 \cos \left( 2 \pi x_{i} \right) \right)$ & $\left[ -5.12, 5.12 \right]$ & $\left( 0 \right)^{n}$ & $0$ \\
+			Rosenbrock & $\sum\limits_{i=1}^{n-1} \left( 100 \left( x_{i+1} - x_{i}^{2} \right)^{2} + \left( 1 - x_{i} \right)^{2} \right)$ & $\left[ -5.12, 5.12 \right]$ & $\left( 1 \right)^{n}$ & $0$ \\
+			Styblinski-Tang & $\frac{1}{2} \sum\limits_{i=1}^{n} \left( x_{i}^{4} - 16 x_{i}^{2} + 5 x_{i} \right) + 39.16599n$ & $\left[ -5, 5 \right]$ & $\left( -2.903534 \right)^{n}$ & $0$ \\
+			\bottomrule
+		\end{tabular}
+	}
+	\caption{Benchmark test functions.}
+	\label{tab:benchmark_test_functions}
+\end{table}

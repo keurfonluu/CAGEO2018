@@ -1,0 +1,22 @@
+\section{CPSO algorithm}
+\label{app:algo_cpso}
+
+Algorithm~\ref{alg:cpso} describes CPSO competition triggering with $\varepsilon$ the swarm maximum radius threshold as defined in Equation~\ref{eq:swarm_maximum_radius}. The maximum swarm radius $\delta^{k}$ at iteration~$k$ is evaluated right after the update of swarm global best model (line~15 of Algorithm~\ref{alg:pso}). The ``worst'' particles can be determined using a quickselect method that finds only the $s_{w}^{k}$ individuals yielding the highest misfit values. Note that reset particles personal best misfits are set to $+\infty$ instead of their true misfits to avoid extra misfit computation that would deteriorate parallel performance.
+
+\begin{algorithm}[H]
+	\centering
+	\caption{CPSO competition triggering algorithm}
+	\label{alg:cpso}
+	\begin{algorithmic}[1]
+		\If {$\delta^{k} < \varepsilon$}
+			\For {$i = 1$ to s}		
+				\If {$\mathbf{m}_{i}$ is worse}
+					\State $\mathbf{v}_{i} \gets \mathbf{0}$ \Comment{Reset velocity}
+					\State $\mathbf{m}_{i} \sim \mathcal{U} \left( \mathbf{m}_{\min}, \mathbf{m}_{\max} \right)$ \Comment{Reset model}
+					\State $\mathbf{p}_{fit,i} \gets +\infty$ \Comment{Reset personal best misfit}
+					\State $\mathbf{P}_{best,i} \gets \mathbf{m}_{i}$ \Comment{Reset personal best model}
+				\EndIf
+			\EndFor
+		\EndIf
+	\end{algorithmic}
+\end{algorithm}
