@@ -1,4 +1,5 @@
 # A parallel Competitive Particle Swarm Optimization for non-linear first arrival traveltime tomography and uncertainty quantification
+[![DOI](https://img.shields.io/badge/DOI-10.1016/j.cageo.2018.01.016-blue.svg)](https://doi.org/10.1016/j.cageo.2018.01.016)
 
 
 ## Abstract
